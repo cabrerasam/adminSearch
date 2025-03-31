@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="w-screen h-screen pl-[200px] flex flex-col gap-4 justify-center items-center">
+    <h1 class="text-2xl text-zinc-900 mb-8">USUARIOS</h1>
+    <table class="table-fixed border-1 rounded-lg px-6 py-4 border-zinc-400 w-[70%]">
+      <thead>
+        <tr class="">
+          <th>Nombre</th>
+          <th>Nick</th>
+          <th>Área</th>
+          <th>Rol</th>
+          <th>Región</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr class="border-1 border-zinc-400">
+          <td class="">Juan Perez</td>
+          <td class="">juanperez</td>
+          <td class="">Política</td>
+          <td class="">Técnico</td>
+          <td class="">La Paz</td>
+          <td class="">
+            <button class="bg-sky-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Editar</button>
+            <button class="bg-red-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Borrar</button>
+            <button class="bg-lime-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Ver</button>
+          </td>
+        </tr>
+        <tr class="border-1 border-zinc-400">
+          <td class="">Juan Perez</td>
+          <td class="">juanperez</td>
+          <td class="">Area 1</td>
+          <td class="">Area 1</td>
+          <td class="">Area 1</td>
+          <td class="">
+            <button class="bg-sky-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Editar</button>
+            <button class="bg-red-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Borrar</button>
+            <button class="bg-lime-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Ver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</Layout>
