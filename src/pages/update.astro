@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="w-screen h-screen pl-[200px] flex flex-col gap-4 justify-center items-center">
+    <h1 class="text-2xl text-zinc-900">Actualizar usuario</h1>
+    <form class="flex flex-col justify-between gap-4 border-1 border-zinc-400 rounded-lg px-6 py-4">
+      <label>
+        <span class="w-[90px] inline-block">Nombre:</span>
+        <input type="text" name="name" placeholder="Escriba aquí" class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+      </label>
+      <label>
+        <span class="w-[90px] inline-block">Nick:</span>
+        <input type="text" name="nick" placeholder="Escriba aquí" class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+      </label>
+      <label>
+        <span class="w-[90px] inline-block">Contraseña:</span>
+        <input type="password" name="password" placeholder="Escriba aquí" class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+      </label>
+      <label>
+        <span class="w-[90px] inline-block">Área:</span>
+        <input type="text" name="area" placeholder="Escriba aquí" class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+      </label>
+      <label>
+        <span class="w-[90px] inline-block">Rol:</span>
+        <input type="text" name="role" placeholder="Escriba aquí" class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+      </label>
+      <label>
+        <span class="w-[90px] inline-block">Región:</span>
+        <input type="text" name="region" placeholder="Escriba aquí" class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+      </label>
+      <button type="submit" class="bg-sky-800 px-4 py-1 rounded-md text-white font-extralight text-sm">Actualizar</button>
+    </form>
+  </main>
+</Layout>
