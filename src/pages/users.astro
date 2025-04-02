@@ -1,37 +1,11 @@
 ---
-import TableRow from "../components/TableRow.astro";
 import Layout from "../layouts/Layout.astro";
+import FetchUsers from "../components/FetchUsers.astro";
 ---
 
 <Layout>
   <main class="w-screen h-screen pl-[200px] flex flex-col gap-4 justify-center items-center">
     <h1 class="text-2xl text-zinc-900 mb-8">USUARIOS</h1>
-    <table class="table-fixed border-1 rounded-lg px-6 py-4 border-zinc-400 w-[70%]">
-      <thead>
-        <tr class="bg-zinc-400">
-          <th>Nombre</th>
-          <th>Nick</th>
-          <th>Área</th>
-          <th>Rol</th>
-          <th>Región</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <TableRow name="Juan Perez" nick="juanperez" area="Area 1" role="Técnico" region="La Paz" linkOne="/update" linkTwo="ver" />
-      </tbody>
-    </table>
+    <FetchUsers />
   </main>
 </Layout>
-<script>
-  // Agregar event listeners a todos los botones de borrar
-  document.querySelectorAll('button').forEach(button => {
-    if (button.textContent === 'Borrar') {
-      button.addEventListener('click', () => {
-        console.log('borrar');
-        // Aquí puedes agregar la lógica para borrar el usuario
-      });
-    }
-  });
-</script>
-

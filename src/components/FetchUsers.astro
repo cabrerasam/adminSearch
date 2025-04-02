@@ -1,0 +1,39 @@
+---
+import TableRow from "./TableRow.astro";
+
+const URL = 'http://localhost:1234';
+
+const res = await fetch(`${URL}/users`);
+const data = await res.json();
+
+const item = async (id: string, idURL: string, nameItem: string) => {
+  try {
+    const items = await fetch(`${URL}/${idURL}/${id}`);
+    const data = await items.json();
+    return data[0][`name_${nameItem}`];
+  } catch (error) {
+    console.error(`Error al obtener ${nameItem}:`, error);
+    return `${nameItem} no encontrado`;
+  }
+}
+
+---
+<table class="table-fixed border-1 border-zinc-400 w-[70%]">
+  <thead>
+    <tr class="bg-zinc-700 text-white">
+      <th class="w-[150px]">Nombre</th>
+      <th class="w-[100px]">Nick</th>
+      <th class="w-[100px]">Área</th>
+      <th class="w-[100px]">Rol</th>
+      <th class="w-[100px]">Región</th>
+      <th class="w-[100px]">Acciones</th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    {
+      data.map((user: any) => (
+        <TableRow name={user.user_name} nick={user.user_nick} area={item(user.id_area, 'areas', 'area')} role={item(user.id_role, 'roles', 'role')} region={item(user.id_region, 'regions', 'region')} linkOne="/update" linkTwo="ver" />
+      ))
+    }
+  </tbody>
+</table>
