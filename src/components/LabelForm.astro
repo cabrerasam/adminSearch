@@ -1,7 +1,7 @@
 ---
-  const { label, name, placeholder } = Astro.props;
+  const { label, name, placeholder, value } = Astro.props;
 ---
 <label>
   <span class="w-[90px] inline-block">{label}</span>
-  <input type="text" name={name} placeholder={placeholder} class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
+  <input type="text" name={name} placeholder={placeholder} value={value} class="border-b-1 border-zinc-500 px-2 py-1 focus:outline-none placeholder:text-sm placeholder:text-zinc-400" />
 </label>

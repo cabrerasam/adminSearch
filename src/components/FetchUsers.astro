@@ -16,7 +16,6 @@ const item = async (id: string, idURL: string, nameItem: string) => {
     return `${nameItem} no encontrado`;
   }
 }
-
 ---
 <table class="table-fixed border-1 border-zinc-400 w-[70%]">
   <thead>
@@ -32,7 +31,7 @@ const item = async (id: string, idURL: string, nameItem: string) => {
   <tbody class="text-center">
     {
       data.map((user: any) => (
-        <TableRow name={user.user_name} nick={user.user_nick} area={item(user.id_area, 'areas', 'area')} role={item(user.id_role, 'roles', 'role')} region={item(user.id_region, 'regions', 'region')} linkOne="/update" linkTwo="ver" />
+        <TableRow id={user.id_user} name={user.user_name} nick={user.user_nick} area={item(user.id_area, 'areas', 'area')} role={item(user.id_role, 'roles', 'role')} region={item(user.id_region, 'regions', 'region')} linkOne={`/update`} linkTwo="ver" />
       ))
     }
   </tbody>

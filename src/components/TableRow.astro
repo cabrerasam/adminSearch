@@ -1,5 +1,5 @@
 ---
-const { name, nick, area, role, region, linkOne, linkTwo, click } = Astro.props
+const { id, name, nick, area, role, region, linkOne, linkTwo, click } = Astro.props
 ---
 
 <tr class="border-1 border-zinc-400 even:bg-zinc-400">
@@ -9,8 +9,8 @@ const { name, nick, area, role, region, linkOne, linkTwo, click } = Astro.props
   <td class="">{role}</td>
   <td class="">{region}</td>
   <td class="">
-    <a href={linkOne} class="cursor-pointer bg-sky-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Editar</a>
+    <a href={`${linkOne}/${id}`} class="cursor-pointer bg-sky-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Editar</a>
     <button onclick={click} class="cursor-pointer bg-red-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Borrar</button>
-    <a href={linkTwo} class="cursor-pointer bg-lime-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Ver</a>
+    <a href={`${linkTwo}/${id}`} class="cursor-pointer bg-lime-900 text-white text-xs px-2 py-1 rounded-md mt-1 mb-1">Ver</a>
   </td>
 </tr>
