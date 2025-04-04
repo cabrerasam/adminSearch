@@ -1,51 +1,36 @@
 ---
 import FormButton from "../../components/FormButton.astro";
 import LabelForm from "../../components/LabelForm.astro";
+import { fetchData, fetchDataBy, itemData } from "../../helpers/services";
 import Layout from "../../layouts/Layout.astro";
 
-const BASE_URL = 'http://localhost:1234';
 const { id } = Astro.params;
 
-console.log(id)
-
-const res = await fetch(`${BASE_URL}/users/${id}`);
-const data = await res.json();
+const data = await fetchDataBy('users', id);
 
 export async function getStaticPaths() {
-    const res = await fetch('http://localhost:1234/users');
-    const data = await res.json();
-    return data.map((dt: any) => ({
-        params: { id: dt.id_user },
-    }));
+  const data = await fetchData('users');
+  return data.map((dt: any) => ({
+    params: { id: dt.id_user },
+  }));
 }
 
-const item = async (id: string, idURL: string, nameItem: string) => {
-  try {
-    const items = await fetch(`${BASE_URL}/${idURL}/${id}`);
-    const data = await items.json();
-    return data[0][`name_${nameItem}`];
-  } catch (error) {
-    console.error(`Error al obtener ${nameItem}:`, error);
-    return `${nameItem} no encontrado`;
-  }
-}
-
-const areaValue = await item(data[0].id_area, 'areas', 'area');
-const roleValue = await item(data[0].id_role, 'roles', 'role');
-const regionValue = await item(data[0].id_region, 'regions', 'region');
+const areaValue = await itemData(data[0].id_area, 'areas', 'area');
+const roleValue = await itemData(data[0].id_role, 'roles', 'role');
+const regionValue = await itemData(data[0].id_region, 'regions', 'region');
 
 ---
 
 <Layout>
-    <main class="flex flex-col items-center justify-center h-screen">
-        <form class="flex flex-col justify-between gap-4">
-            <LabelForm label="Nombre" name="name" placeholder="Escriba aquí" value={data[0].user_name} />
-            <LabelForm label="Nick" name="nick" placeholder="Escriba aquí" value={data[0].user_nick} />
-            <LabelForm label="Contraseña" name="password" placeholder="Escriba aquí" value={data[0].user_password} />
-            <LabelForm label="Área" name="area" placeholder="Escriba aquí" value={areaValue} />
-            <LabelForm label="Rol" name="role" placeholder="Escriba aquí" value={roleValue} />
-            <LabelForm label="Región" name="region" placeholder="Escriba aquí" value={regionValue} />
-            <FormButton text="Actualizar" type="submit" />
-          </form>
-    </main>
+  <main class="w-full h-screen pl-[200px] flex flex-col gap-4 justify-center items-center">
+    <form class="flex flex-col justify-between gap-4">
+      <LabelForm label="Nombre" name="name" placeholder="Escriba aquí" value={data[0].user_name} />
+      <LabelForm label="Nick" name="nick" placeholder="Escriba aquí" value={data[0].user_nick} />
+      <LabelForm label="Contraseña" name="password" placeholder="Escriba aquí" value={data[0].user_password} />
+      <LabelForm label="Área" name="area" placeholder="Escriba aquí" value={areaValue} />
+      <LabelForm label="Rol" name="role" placeholder="Escriba aquí" value={roleValue} />
+      <LabelForm label="Región" name="region" placeholder="Escriba aquí" value={regionValue} />
+      <FormButton text="Actualizar" type="submit" />
+    </form>
+  </main>
 </Layout>

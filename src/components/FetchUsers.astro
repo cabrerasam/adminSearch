@@ -1,21 +1,7 @@
 ---
+import { fetchData, itemData } from "../helpers/services.js";
 import TableRow from "./TableRow.astro";
-
-const URL = 'http://localhost:1234';
-
-const res = await fetch(`${URL}/users`);
-const data = await res.json();
-
-const item = async (id: string, idURL: string, nameItem: string) => {
-  try {
-    const items = await fetch(`${URL}/${idURL}/${id}`);
-    const data = await items.json();
-    return data[0][`name_${nameItem}`];
-  } catch (error) {
-    console.error(`Error al obtener ${nameItem}:`, error);
-    return `${nameItem} no encontrado`;
-  }
-}
+const data = await fetchData('users')
 ---
 <table class="table-fixed border-1 border-zinc-400 w-[70%]">
   <thead>
@@ -31,7 +17,7 @@ const item = async (id: string, idURL: string, nameItem: string) => {
   <tbody class="text-center">
     {
       data.map((user: any) => (
-        <TableRow id={user.id_user} name={user.user_name} nick={user.user_nick} area={item(user.id_area, 'areas', 'area')} role={item(user.id_role, 'roles', 'role')} region={item(user.id_region, 'regions', 'region')} linkOne={`/update`} linkTwo="ver" />
+        <TableRow id={user.id_user} name={user.user_name} nick={user.user_nick} area={itemData(user.id_area, 'areas', 'area')} role={itemData(user.id_role, 'roles', 'role')} region={itemData(user.id_region, 'regions', 'region')} linkOne={`/update`} linkTwo="/view" />
       ))
     }
   </tbody>
