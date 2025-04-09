@@ -1,11 +1,40 @@
 ---
 import { fetchData, fetchDataBy, itemData } from "../../helpers/services";
+import { formatDate } from "../../helpers/formatDate";
 import Layout from "../../layouts/Layout.astro";
 
 const { id } = Astro.params;
 const dataSubject = await fetchDataBy('users', id);
 const dataRegisterSubject = await fetchDataBy('admin/subjects', id);
 const dataRegisterReport = await fetchDataBy('admin/reports', id);
+
+const REPORT_TYPES = {
+  DIARY: 'DIARIO',
+  WEEKLY: 'SEMANAL',
+  ONG_WEEKLY : 'SEMANAL ONG',
+  ALERT: 'ALERTA',
+  SUNDAY: 'DOMINICAL',
+  MONITORING: 'MONITOREO',
+}
+
+const NUM_REPORT = (type: any) => {
+  switch (type) {
+    case REPORT_TYPES.DIARY:
+      return 'num_diary';
+    case REPORT_TYPES.WEEKLY:
+      return 'num_weekly';
+    case REPORT_TYPES.ONG_WEEKLY:
+      return 'num_ngo_weekly';
+    case REPORT_TYPES.ALERT:
+      return 'num_alert';
+    case REPORT_TYPES.SUNDAY:
+      return 'num_sunday';
+    case REPORT_TYPES.MONITORING:
+      return 'num_monitoring';
+    default:
+      return null;
+  }
+}
 
 export async function getStaticPaths() {
   const data = await fetchData('users');
@@ -24,7 +53,7 @@ const regionValue = await itemData(dataSubject[0].id_region, 'regions', 'region'
 
 <Layout title="View" description="View page">
   <main class="w-full h-screen pl-[200px] flex flex-col gap-4 justify-center items-center pb-4">
-    <section class="grid grid-cols-2 grid-rows-4">
+    <section class="grid grid-cols-2 grid-rows-4 mb-4">
       <ul class="row-span-4 flex flex-col items-center justify-center w-[200px] border-1 border-gray-400">
         {nameArray.map((item: any, index: any) => (
           <li class="text-xl text-sky-800 text-center">{item}</li>
@@ -36,7 +65,8 @@ const regionValue = await itemData(dataSubject[0].id_region, 'regions', 'region'
       <div class="border-1 p-2 flex justify-center items-center text-sky-800 border-gray-400 col-start-2 row-start-4">{regionValue}</div>
     </section>
     <section class="flex gap-4 text-sm">
-      <section class="w-1/2 max-h-[500px] rounded-lg shadow-md overflow-auto">
+      <section class="w-[650px] max-h-[550px] rounded-lg shadow-md overflow-auto">
+        <h2 class="text-center text-xl mb-2 text-sky-800">Individuos</h2>
         <table class="table-auto w-full text-left border-collapse">
           <thead class="bg-gray-500 text-center">
             <tr>
@@ -57,14 +87,15 @@ const regionValue = await itemData(dataSubject[0].id_region, 'regions', 'region'
                   <td class="px-4 py-2 border-r">
                     {item.last_audit_subject.name_individual ?? item.last_audit_subject.name_collective}
                   </td>
-                  <td class="px-4 py-2">{item.create_audit_subject}</td>
+                  <td class="px-4 py-2">{formatDate(item.create_audit_subject)}</td>
                 </tr>
               ))
             }
           </tbody>
         </table>
       </section>
-      <section class="w-1/2 max-h-[500px] rounded-lg shadow-md overflow-auto">
+      <section class="w-[650px] max-h-[550px] rounded-lg shadow-md overflow-auto">
+        <h2 class="text-center text-xl mb-2 text-sky-800">Informes</h2>
         <table class="table-auto w-full text-left border-collapse">
           <thead class="bg-gray-500 text-center">
             <tr>
@@ -82,8 +113,8 @@ const regionValue = await itemData(dataSubject[0].id_region, 'regions', 'region'
                   <td class="px-2 py-2 border-r">{index + 1}</td>
                   <td class="px-4 py-2 border-r">{item.action_audit_report}</td>
                   <td class="px-4 py-2 border-r">{item.table_audit_report}</td>
-                  <td class="px-4 py-2 border-r">{item.id_user}</td>
-                  <td class="px-4 py-2">{item.create_audit_report}</td>
+                  <td class="px-4 py-2 border-r">{item.last_audit_report[`${NUM_REPORT(item.table_audit_report)}`]}</td>
+                  <td class="px-4  py-2">{formatDate(item.create_audit_report)}</td>
                 </tr>
               ))
             }
